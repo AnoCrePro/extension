@@ -1,9 +1,10 @@
 import { Typography, Box, TextField, Button } from "@mui/material";
 import { useState } from "react";
-import { sha256 } from "js-sha256";
 import CopyToClipboard from "react-copy-to-clipboard";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneIcon from '@mui/icons-material/Done';
+import { mimc7 } from "circomlib";
+const BigInt = require("big-integer");
 
 function App() {
   const [mainPub, setMainPub] = useState("")
@@ -24,8 +25,10 @@ function App() {
     setPass(e.target.value) 
   }
 
-  const genAuthHash = () => {
-    setAuthHash(sha256(mainPub.concat(subPub, pass)))
+  const genAuthHash = async () => {
+    let hash = mimc7.multiHash([BigInt(mainPub.replace("0x", ""), 16).value, BigInt(subPub.replace("0x", ""), 16).value, BigInt(pass, 10).value]).toString()
+    console.log(hash)
+    setAuthHash(hash)
     setCopied(false)
   }
 
