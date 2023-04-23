@@ -4,6 +4,7 @@ import CopyToClipboard from "react-copy-to-clipboard";
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import DoneIcon from '@mui/icons-material/Done';
 import { mimc7 } from "circomlib";
+import Sign from "./Sign";
 const BigInt = require("big-integer");
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
           {copied ? <DoneIcon/> : <ContentCopyIcon sx={{marginLeft: "10px"}} onClick={handleCopyHash}/>}
         </CopyToClipboard>
       </Box>  : ""}
+      <Sign/>
     </div>
   );
 }
